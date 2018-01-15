@@ -1,0 +1,292 @@
+// var width = $(document).width();
+              // var height = $(document).height();
+
+              // var tagScale = d3.scale.linear().range([10,250]);
+
+              //   tagScale.domain([
+              //       d3.min(data, function(d){ return d.size; }),    
+              //       d3.max(data, function(d){ return d.size; })    
+              //     ]);
+
+              //   var fill = d3.scale.category20();
+              //     d3.layout.cloud().size([width-150, height-250])
+              //         .words(data)
+              //           .padding(1)
+              //         .rotate(function() { return ~~(Math.random() * 2); })
+              //         .font("Impact")
+              //         .fontSize(function(d) { return tagScale(d.size); })
+              //         .on("end", draw)
+              //         .start();
+                      
+              //     function draw(words) {
+              //       d3.select("#word-cloud").append("svg")
+
+              //           .attr("width", width)
+              //           .attr("height", height)
+
+              //         .append("g")
+              //           .attr("transform", "translate(" + [width >> 1, height >> 1] + ")")
+
+              //         .selectAll("text")
+              //           .data(words)
+
+              //         .enter().append("text")
+              //           .style("font-size", function(d) { return d.size + "px"; })
+              //           .style("font-family", "Impact")
+              //           .style("fill", function(d, i) { return fill(i); })
+              //           .attr("text-anchor", "middle")
+              //           .attr("transform", function(d) {
+              //             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+              //           })
+              //           .text(function(d) { return d.text; });
+              //     }
+
+              },
+
+
+
+              <!DOCTYPE html>
+<html> 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>TagCloud</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <h3 class="mt-4">Gerar Tag Cloud 1</h3> 
+                  <form id="uploadForm" method="post" enctype="multipart/form-data">
+                    Selecione um arquivo XML: 
+                    <input id="file" type="file" name="file">
+                    <label for="file" class="ml-1 btn btn-primary" style="cursor: pointer;">Selecionar XML</label>
+                    <button class="btn btn-danger ml-1" style="height: 38px; margin-bottom: 8px; cursor: pointer;">Submit</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="ml-4 col-12">
+                <h3 class="mt-4">Gerar Tag Cloud 2</h3> 
+                  <form id="uploadForm-2" method="post" enctype="multipart/form-data">
+                    Selecione um arquivo XML: 
+                    <input type="file" name="file" id="file2">
+                    <label for="file2" class="ml-1 btn btn-primary" style="cursor: pointer;">Selecionar XML</label>
+                    <button class="btn btn-danger ml-1" style="height: 38px; margin-bottom: 8px; cursor: pointer;">Submit</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>   
+
+<!--   <div class="container-fluid">
+    <div class="row">
+      <div class="col-6"> -->
+        <div id="word-cloud"></div>
+      <!-- </div> -->
+      <!-- <div class="col-6"> -->
+        <div id="word-cloud-2"></div>
+<!--       </div>
+    </div>
+  </div> -->
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 bg-light py-4"> 
+                <div class="row ml-3 mb-4">
+                  <div class="col-4">
+                    <div class="row">
+                    <div class="custom-control custom-radio  mt-2">
+                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label mr-3" for="customRadio1">Nome</label>
+                    </div>
+                    <div class="custom-control custom-radio  mt-2">
+                      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label mr-3" for="customRadio2">Disciplina</label>
+                    </div>
+                    <button class="btn btn-primary ml-2 mt-1"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+                  </div>
+                  </div>
+                <div class="mt-1 col-8">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="form-control" value="50" placeholder="Digite um valor máximo de quantidade de palavras" aria-label="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary ml-2" type="button" id="filtrar1">Filtrar</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-6">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 bg-light py-4"> 
+                <div class="row ml-3 mb-4">
+                  <div class="col-4">
+                    <div class="row">
+                    <div class="custom-control custom-radio  mt-2">
+                      <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label mr-3" for="customRadio3">Nome</label>
+                    </div>
+                    <div class="custom-control custom-radio  mt-2">
+                      <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label mr-3" for="customRadio4">Disciplina</label>
+                    </div>
+                    <button class="btn btn-primary ml-2 mt-1"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+                  </div>
+                  </div>
+                <div class="mt-1 col-8">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="form-control-2" placeholder="Digite um valor máximo de quantidade de palavras" aria-label="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary ml-2" type="button" id="filtrar2">Filtrar</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 ">
+        <button class="btn btn-primary align-self-center">Comparar Nuvens</button>
+      </div>
+    </div>
+  </div>
+        
+  
+
+    
+    <script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/bootstrap.js"></script>
+    
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+<!--     <script type="text/javascript" src="/static/lib/d3/d3.js"></script> -->
+    <script type="text/javascript" src="/static/lib/d3/d3.layout.cloud.js"></script>
+    <script type="text/javascript" src="/static/d3.wordcloud.js"></script>
+    <!-- <script type="text/javascript" src="/static/svg-pan-zoom.min.js"></script> -->
+
+
+
+    <script type="text/javascript">
+
+      var tagcloud_data_1 = [];
+      var tagcloud_data_2 = [];
+
+
+      var render = function(x, divplot){
+        $('#'+divplot).html('');
+        d3.wordcloud()
+        .size([800, 400])
+        .selector('#'+divplot)
+        .words(x)
+        .start();
+      }
+
+      $("form#uploadForm").submit(function(e){
+
+        e.preventDefault();
+
+        let formData = new FormData($(this)[0]);
+
+          $.ajax({
+              url: '/upload',
+              type: 'POST',
+              data: formData,
+              async: true,
+              dataType: 'JSON',
+              success: function (ok){
+                console.log(ok);
+              tagcloud_data_1 = ok;
+              render(ok, 'word-cloud');
+
+            },
+              cache: false,
+              contentType: false,
+              processData: false
+        });
+        return false;
+
+      });
+
+      $("form#uploadForm-2").submit(function(e){
+
+        e.preventDefault();
+
+        let formData = new FormData($(this)[0]);
+
+          $.ajax({
+              url: '/upload',
+              type: 'POST',
+              data: formData,
+              async: true,
+              success: function (ok){
+                console.log(ok);
+              tagcloud_data_2 = ok;
+              render(ok, 'word-cloud-2');
+
+            },
+              cache: false,
+              contentType: false,
+              processData: false
+        });
+        return false;
+      });
+
+
+
+      $('#filtrar1').click(function(){
+
+        var value = parseInt($('#form-control').val());  
+        tagcloud_data_1.sort(function(a, b){return b.size-a.size});   
+
+        let temp = [];
+         for(var i=0; i<value; i++){
+
+          temp[i] = tagcloud_data_1[i];
+
+        }
+
+        render(temp, 'word-cloud');
+      });
+
+
+      $('#filtrar2').click(function(){
+
+        console.log(tagcloud_data_2);
+
+        render(tagcloud_data_2, 'word-cloud-2');
+      });
+    
+    </script>
+</body>
+</html>

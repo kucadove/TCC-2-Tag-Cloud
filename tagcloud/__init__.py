@@ -1,0 +1,1 @@
+from .tagcloud import app
