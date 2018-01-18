@@ -1,6 +1,7 @@
 # all the imports
 import xml.etree.ElementTree as ET
 import re
+import MySQLdb
 
 class pre_processing:
 

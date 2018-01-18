@@ -4,6 +4,7 @@ import os
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify
 from werkzeug.utils import secure_filename
 from processing import pre_processing
+import MySQLdb
 
 ALLOWED_EXTENSIONS = set(['xml'])
 UPLOAD_FOLDER = 'tagcloud/static/uploads'
@@ -42,11 +43,6 @@ def upload_file():
         response = pr.readXML()
         print response
         return jsonify(response)  
-
-
-@app.route('/teste', methods = ['GET'])
-def teste():
-    return render_template("teste.html")
 
 
 
