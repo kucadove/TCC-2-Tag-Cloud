@@ -15,6 +15,15 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-6">
+          <div class="mt-1 col-8">
+            <h3 class="mt-4 mb-3">Procurar Tag Cloud 1</h3> 
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Digite uma nome ou palavra" aria-label="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-light ml-2" type="button">Abrir Tag Cloud</button>
+              </span>
+            </div>
+          </div>
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">
@@ -31,9 +40,18 @@
       </div>
 
       <div class="col-6">
+        <div class="mt-1 col-8">
+            <h3 class="mt-4 mb-3">Procurar Tag Cloud 2</h3> 
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Digite uma nome ou palavra" aria-label="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-light ml-2" type="button">Abrir Tag Cloud</button>
+              </span>
+            </div>
+          </div>
           <div class="container-fluid">
             <div class="row">
-              <div class="ml-4 col-12">
+              <div class="col-12">
                 <h3 class="mt-4">Gerar Tag Cloud 2</h3> 
                   <form id="uploadForm-2" method="post" enctype="multipart/form-data">
                     Selecione um arquivo XML: 
@@ -77,11 +95,12 @@
                       <label class="custom-control-label mr-3" for="customRadio2">Disciplina</label>
                     </div>
                     <button class="btn btn-primary ml-2 mt-1"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+                    <button class="btn btn-primary mt-3" id="reset1">Resetar Tag Cloud 1</button>
                   </div>
                   </div>
                 <div class="mt-1 col-8">
                   <div class="input-group">
-                    <input type="number" class="form-control" id="form-control" value="100" placeholder="Digite um valor máximo de quantidade de palavras" aria-label="Search for...">
+                    <input type="number" class="form-control" id="form-control" placeholder="Digite um limite de quantidade de palavras" aria-label="Search for...">
                     <span class="input-group-btn">
                       <button class="btn btn-primary ml-2" type="button" id="filtrar1">Filtrar</button>
                     </span>
@@ -109,11 +128,12 @@
                       <label class="custom-control-label mr-3" for="customRadio4">Disciplina</label>
                     </div>
                     <button class="btn btn-primary ml-2 mt-1"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+                    <button class="btn btn-primary mt-3">Resetar Tag Cloud 2</button>
                   </div>
                   </div>
                 <div class="mt-1 col-8">
                   <div class="input-group">
-                    <input type="number" class="form-control" id="form-control-2" value="100" placeholder="Digite um valor máximo de quantidade de palavras" aria-label="Search for...">
+                    <input type="number" class="form-control" id="form-control-2" placeholder="Digite um limite de quantidade de palavras" aria-label="Search for...">
                     <span class="input-group-btn">
                       <button class="btn btn-primary ml-2" type="button" id="filtrar2">Filtrar</button>
                     </span>
@@ -128,11 +148,11 @@
   </div>
         
   <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col">
-        <button class="btn btn-primary" id="compare">Comparar Nuvens</button>
+        <button class="mt-4 mb-2 btn btn-primary col-6" id="compare">Comparar Nuvens</button>
         <div id="resultado"></div>
-      </div>  
+      </div>
     </div>
   </div>
 
@@ -245,7 +265,6 @@
         
         renderx(temp, 'word-cloud-2');
       });
-
 
       $('#compare').click(function(){
         let z = [];
