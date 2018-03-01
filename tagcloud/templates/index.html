@@ -7,27 +7,28 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 
 </head>
 <body>
-    
   <div class="container-fluid">
     <div class="row">
       <div class="col-6">
-          <div class="mt-1 col-8">
-            <h3 class="mt-4 mb-3">Procurar Tag Cloud 1</h3> 
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Digite uma nome ou palavra" aria-label="Search for...">
-              <span class="input-group-btn">
-                <button class="btn btn-light ml-2" type="button">Abrir Tag Cloud</button>
-              </span>
-            </div>
+        <div class="mt-1 col-12">
+          <h3 class="mt-4 mb-3">Procurar Tag Cloud 1</h3> 
+            <select class="col-8 js-example-basic-multiple" name="states[]" multiple="multiple" id="select_tagcloud1">
+            </select>
+            <span class="input-group-btn">
+              <button class="btn btn-dark ml-2" id= "opentagcloud1">Listar Currículos</button>
+            </span>
           </div>
+          <table class="table mt-3" id="resultado-busca-1"></table>
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">
-                <h3 class="mt-4">Gerar Tag Cloud 1</h3> 
+                <h3 class="mt-2">Gerar Tag Cloud 1</h3> 
                   <form id="uploadForm" method="post" enctype="multipart/form-data">
                     Selecione um arquivo XML: 
                     <input id="file" type="file" name="file">
@@ -40,19 +41,19 @@
       </div>
 
       <div class="col-6">
-        <div class="mt-1 col-8">
+        <div class="mt-1 col-12">
             <h3 class="mt-4 mb-3">Procurar Tag Cloud 2</h3> 
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Digite uma nome ou palavra" aria-label="Search for...">
+              <select class="col-8 js-example-basic-multiple" name="states[]" multiple="multiple" id="select_tagcloud2">
+              </select>
               <span class="input-group-btn">
-                <button class="btn btn-light ml-2" type="button">Abrir Tag Cloud</button>
+                <button class="btn btn-dark ml-2" type="button" id="opentagcloud2">Listar Currículos</button>
               </span>
-            </div>
           </div>
+           <table class="table mt-3" id="resultado-busca-2"></table>
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">
-                <h3 class="mt-4">Gerar Tag Cloud 2</h3> 
+                <h3 class="mt-2">Gerar Tag Cloud 2</h3> 
                   <form id="uploadForm-2" method="post" enctype="multipart/form-data">
                     Selecione um arquivo XML: 
                     <input type="file" name="file" id="file2">
@@ -70,9 +71,15 @@
     <div class="row">
       <div class="col-6">
         <div id="word-cloud"></div>
+        <div class="progress">
+          <div class="progress-bar progress-bar progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+        </div>
       </div>
       <div class="col-6">
         <div id="word-cloud-2"></div>
+        <div class="progress">
+          <div class="progress-bar progress-bar progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -86,17 +93,8 @@
                 <div class="row ml-3 mb-4">
                   <div class="col-4">
                     <div class="row">
-                    <div class="custom-control custom-radio  mt-2">
-                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                      <label class="custom-control-label mr-3" for="customRadio1">Nome</label>
+                      <button class="btn btn-primary mt-1" id="reset1">Resetar Tag Cloud 1</button>
                     </div>
-                    <div class="custom-control custom-radio  mt-2">
-                      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                      <label class="custom-control-label mr-3" for="customRadio2">Disciplina</label>
-                    </div>
-                    <button class="btn btn-primary ml-2 mt-1"><i class="fa fa-cogs" aria-hidden="true"></i></button>
-                    <button class="btn btn-primary mt-3" id="reset1">Resetar Tag Cloud 1</button>
-                  </div>
                   </div>
                 <div class="mt-1 col-8">
                   <div class="input-group">
@@ -107,10 +105,19 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="container-fluid">
+                     <button class="btn btn-primary" id="autores1">Autores</button>
+                     <button class="btn btn-primary ml-3" id="autores1">Titulos de Pub.</button>
+                  </div>
+               </div>
+             </div>
             </div>
           </div>
         </div>
       </div>
+     
       
       <div class="col-6">
         <div class="container-fluid">
@@ -119,17 +126,8 @@
                 <div class="row ml-3 mb-4">
                   <div class="col-4">
                     <div class="row">
-                    <div class="custom-control custom-radio  mt-2">
-                      <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                      <label class="custom-control-label mr-3" for="customRadio3">Nome</label>
+                      <button class="btn btn-primary mt-1" id="reset2">Resetar Tag Cloud 2</button>
                     </div>
-                    <div class="custom-control custom-radio  mt-2">
-                      <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
-                      <label class="custom-control-label mr-3" for="customRadio4">Disciplina</label>
-                    </div>
-                    <button class="btn btn-primary ml-2 mt-1"><i class="fa fa-cogs" aria-hidden="true"></i></button>
-                    <button class="btn btn-primary mt-3">Resetar Tag Cloud 2</button>
-                  </div>
                   </div>
                 <div class="mt-1 col-8">
                   <div class="input-group">
@@ -140,37 +138,231 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="container-fluid">
+                     <button class="btn btn-primary" id="autores2">Autores</button>
+                     <button class="btn btn-primary ml-3" id="autores1">Titulos de Pub.</button>
+                  </div>
+               </div>
+             </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-        
-  <div class="container">
-    <div class="row text-center">
-      <div class="col">
-        <button class="mt-4 mb-2 btn btn-primary col-6" id="compare">Comparar Nuvens</button>
-        <div id="resultado"></div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <div class="mt-1 col-12">
+          <h3 class="mt-4 mb-3">Procurar Tag Cloud 3</h3> 
+            <select class="col-8 js-example-basic-multiple" name="states[]" multiple="multiple" id="select_tagcloud3">
+            </select>
+            <span class="input-group-btn">
+              <button class="btn btn-dark ml-2" id= "opentagcloud3">Listar Currículos</button>
+            </span>
+          </div>
+          <table class="table mt-3" id="resultado-busca-3"></table>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <h3 class="mt-2">Gerar Tag Cloud 3</h3> 
+                  <form id="uploadForm-3" method="post" enctype="multipart/form-data">
+                    Selecione um arquivo XML: 
+                    <input id="file3" type="file" name="file">
+                    <label for="file3" class="ml-1 btn btn-primary" style="cursor: pointer;">Selecionar XML</label>
+                    <button class="btn btn-danger ml-1" style="height: 38px; margin-bottom: 8px; cursor: pointer;">Submit</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="mt-1 col-12">
+            <h3 class="mt-4 mb-3">Procurar Tag Cloud 4</h3> 
+              <select class="col-8 js-example-basic-multiple" name="states[]" multiple="multiple" id="select_tagcloud4">
+              </select>
+              <span class="input-group-btn">
+                <button class="btn btn-dark ml-2" type="button" id="opentagcloud4">Listar Currículos</button>
+              </span>
+          </div>
+           <table class="table mt-3" id="resultado-busca-4"></table>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <h3 class="mt-2">Gerar Tag Cloud 4</h3> 
+                  <form id="uploadForm-4" method="post" enctype="multipart/form-data">
+                    Selecione um arquivo XML: 
+                    <input type="file" name="file" id="file4">
+                    <label for="file4" class="ml-1 btn btn-primary" style="cursor: pointer;">Selecionar XML</label>
+                    <button class="btn btn-danger ml-1" style="height: 38px; margin-bottom: 8px; cursor: pointer;">Submit</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>   
+
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <div id="word-cloud-3"></div>
+      <div class="progress">
+        <div class="progress-bar progress-bar progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div id="word-cloud-4"></div>
+      <div class="progress">
+        <div class="progress-bar progress-bar progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 bg-light py-4"> 
+                <div class="row ml-3 mb-4">
+                  <div class="col-4">
+                    <div class="row">
+                      <button class="btn btn-primary mt-1" id="reset3">Resetar Tag Cloud 3</button>
+                    </div>
+                  </div>
+                <div class="mt-1 col-8">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="form-control-3" placeholder="Digite um limite de quantidade de palavras" aria-label="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary ml-2" type="button" id="filtrar1">Filtrar</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="container-fluid">
+                     <button class="btn btn-primary" id="autores3">Autores</button>
+                     <button class="btn btn-primary ml-3" id="autores3">Titulos de Pub.</button>
+                  </div>
+               </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      
+      <div class="col-6">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 bg-light py-4"> 
+                <div class="row ml-3 mb-4">
+                  <div class="col-4">
+                    <div class="row">
+                      <button class="btn btn-primary mt-1" id="reset4">Resetar Tag Cloud 4</button>
+                    </div>
+                  </div>
+                <div class="mt-1 col-8">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="form-control-4" placeholder="Digite um limite de quantidade de palavras" aria-label="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary ml-2" type="button" id="filtrar2">Filtrar</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="container-fluid">
+                     <button class="btn btn-primary" id="autores4">Autores</button>
+                     <button class="btn btn-primary ml-3" id="autores4">Titulos de Pub.</button>
+                  </div>
+               </div>
+             </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-    
-    <script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
 
+        
+  <div class="container">
+    <div class="row text-center">
+      <div class="col">
+        <button class="mt-4 mb-1 btn btn-primary col-6" id="compare">Comparar Nuvens 1 & 2</button>
+        <div class="mt-3" id="resultado"></div>
+        <button class="mt-4 mb-1 btn btn-primary col-6" id="compare2">Comparar Nuvens 3 & 4</button>
+        <div class="mt-3" id="resultado2"></div>
+        <button class="mt-1 mb-2 btn btn-success col-6" id="listar">Tag Clouds Armazenadas No Banco</button>
+        <table class="table mt-3" id="listagemBD"></table>
+        <button class="btn btn-danger my-3" id="fecharBD" style="display: none;">Fechar Listagem</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Autores Presentes Neste Currículo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="autores"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Publicações Presentes Neste Currículo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="titulos"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <script type="text/javascript" src="/static/pace.min.js"></script>
+    <script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript" src="/static/lib/d3/d3.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/lib/d3/d3.layout.cloud.js"></script>
     <script type="text/javascript" src="/static/d3.wordcloud.js"></script>
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/static/bootstrap.js"></script>
+
 
     <script>
 
       var tagcloud_data_1 = [];
       var tagcloud_data_2 = [];
-
+      var tagcloud_data_3 = [];
+      var tagcloud_data_4 = [];
 
       var renderx = function(x, divplot){
         $('#'+divplot).html('');
@@ -182,6 +374,378 @@
 
         .start();
       }
+
+      var rendery = function(x, divplot){
+        $('#'+divplot).html('');
+        d3.wordcloud()
+        .size([800, 750])
+        .selector('#'+divplot)
+        .font("Impact")
+        .words(x)
+
+        .start();
+      }
+
+      $(document).ready(function(){
+           $.ajax({
+              url: '/wordsdb',
+              type: 'POST',
+              async: true,
+              dataType: 'JSON',
+              success: function (data_d){
+
+               $(document).ready(function() {
+                  $(".js-example-basic-multiple").select2({
+                    data: data_d
+                })
+             });
+
+              
+            },
+              cache: false,
+              contentType: false,
+              processData: false
+        });
+        return false;
+      });
+
+      $('#opentagcloud1').click(function(){
+       
+        var valor = $("#select_tagcloud1").val();
+
+        $.post( "/options", { valor : valor }, function(data){
+              
+          console.log(data);
+          html = `<thead>
+                    <tr>
+                      <th scope="col">Nome Profissional</th>
+                      <th scope="col">Palavras</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>`;
+
+          for (var i = 0; i < data.length; i++) {
+            html += `<tbody>
+                       <tr>
+                        <td>`+data[i][2]+`</td>
+                        <td>`+data[i][1]+`</td>
+                        <td><button1 class="btn btn-primary" idtag=`+data[i][0]+`>Gerar Tag</button></td>
+                        <td><button2 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" idtag=`+data[i][0]+`>Autores</button></td>
+                        <td><button3 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong2" idtag=`+data[i][0]+`>Publicações</button></td>
+                        </tr> 
+                      </tbody>`;
+          }
+
+          $('#resultado-busca-1').html(html);
+
+          $('#resultado-busca-1 tbody tr td button1').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/render",{valor : x}, function(data_d){
+                var a = '';
+                tagcloud_data_1 = data_d;
+                console.log(data_d);
+                $('#resultado-busca-1').html(a);
+                renderx(data_d, 'word-cloud');
+
+              
+              }, "json");
+          });
+
+
+          $('#resultado-busca-1 tbody tr td button2').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/autores",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="autores"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#autores').html(html);
+              }, "json");
+              
+          });
+
+
+           $('#resultado-busca-1 tbody tr td button3').on('click', function(){
+              let x = $(this).attr('idtag');
+
+                $.post("/titulos",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="titulos"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#titulos').html(html);
+              }, "json");
+              
+          });
+
+            
+        }
+
+        , "json");
+
+      });
+
+
+    $('#opentagcloud2').click(function(){
+       
+        var valor = $("#select_tagcloud2").val();
+
+        $.post( "/options", { valor : valor }, function(data){
+              
+          console.log(data);
+          html = `<thead>
+                    <tr>
+                      <th scope="col">Nome Profissional</th>
+                      <th scope="col">Palavras</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>`;
+
+          for (var i = 0; i < data.length; i++) {
+            html += `<tbody>
+                       <tr>
+                        <td>`+data[i][2]+`</td>
+                        <td>`+data[i][1]+`</td>
+                        <td><button1 class="btn btn-primary" idtag=`+data[i][0]+`>Gerar Tag</button></td>
+                        <td><button2 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" idtag=`+data[i][0]+`>Autores</button></td>
+                        <td><button3 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong2" idtag=`+data[i][0]+`>Publicações</button></td>
+                        </tr> 
+                      </tbody>`;
+          }
+
+          $('#resultado-busca-2').html(html);
+
+          $('#resultado-busca-2 tbody tr td button1').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/render",{valor : x}, function(data_d){
+                var a = '';
+                tagcloud_data_2 = data_d;
+                console.log(data_d);
+                $('#resultado-busca-2').html(a);
+                renderx(data_d, 'word-cloud-2');
+
+              
+              }, "json");
+          });
+
+
+          $('#resultado-busca-2 tbody tr td button2').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/autores",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="autores"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#autores').html(html);
+              }, "json");
+              
+          });
+
+
+           $('#resultado-busca-2 tbody tr td button3').on('click', function(){
+              let x = $(this).attr('idtag');
+
+                $.post("/titulos",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="titulos"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#titulos').html(html);
+              }, "json");
+              
+          });          
+        }
+
+        , "json");
+
+      });
+
+      $('#opentagcloud3').click(function(){
+       
+        var valor = $("#select_tagcloud3").val();
+
+        $.post( "/options", { valor : valor }, function(data){
+              
+          console.log(data);
+          html = `<thead>
+                    <tr>
+                      <th scope="col">Nome Profissional</th>
+                      <th scope="col">Palavras</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>`;
+
+          for (var i = 0; i < data.length; i++) {
+            html += `<tbody>
+                       <tr>
+                        <td>`+data[i][2]+`</td>
+                        <td>`+data[i][1]+`</td>
+                        <td><button1 class="btn btn-primary" idtag=`+data[i][0]+`>Gerar Tag</button></td>
+                        <td><button2 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" idtag=`+data[i][0]+`>Autores</button></td>
+                        <td><button3 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong2" idtag=`+data[i][0]+`>Publicações</button></td>
+                        </tr> 
+                      </tbody>`;
+          }
+
+          $('#resultado-busca-3').html(html);
+
+          $('#resultado-busca-3 tbody tr td button1').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/render",{valor : x}, function(data_d){
+                var a = '';
+                tagcloud_data_3 = data_d;
+                console.log(data_d);
+                $('#resultado-busca-1').html(a);
+                renderx(data_d, 'word-cloud-3');
+
+              
+              }, "json");
+          });
+
+
+          $('#resultado-busca-3 tbody tr td button2').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/autores",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="autores"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#autores').html(html);
+              }, "json");
+              
+          });
+
+
+           $('#resultado-busca-3 tbody tr td button3').on('click', function(){
+              let x = $(this).attr('idtag');
+
+                $.post("/titulos",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="titulos"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#titulos').html(html);
+              }, "json");
+              
+          });
+
+            
+        }
+
+        , "json");
+
+      });
+
+
+      $('#opentagcloud4').click(function(){
+       
+        var valor = $("#select_tagcloud4").val();
+
+        $.post( "/options", { valor : valor }, function(data){
+              
+          console.log(data);
+          html = `<thead>
+                    <tr>
+                      <th scope="col">Nome Profissional</th>
+                      <th scope="col">Palavras</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>`;
+
+          for (var i = 0; i < data.length; i++) {
+            html += `<tbody>
+                       <tr>
+                        <td>`+data[i][2]+`</td>
+                        <td>`+data[i][1]+`</td>
+                        <td><button1 class="btn btn-primary" idtag=`+data[i][0]+`>Gerar Tag</button></td>
+                        <td><button2 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" idtag=`+data[i][0]+`>Autores</button></td>
+                        <td><button3 class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong2" idtag=`+data[i][0]+`>Publicações</button></td>
+                        </tr> 
+                      </tbody>`;
+          }
+
+          $('#resultado-busca-4').html(html);
+
+          $('#resultado-busca-4 tbody tr td button1').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/render",{valor : x}, function(data_d){
+                var a = '';
+                tagcloud_data_4 = data_d;
+                console.log(data_d);
+                $('#resultado-busca-1').html(a);
+                renderx(data_d, 'word-cloud-4');
+
+              
+              }, "json");
+          });
+
+
+          $('#resultado-busca-4 tbody tr td button2').on('click', function(){
+              let x = $(this).attr('idtag');
+
+
+              $.post("/autores",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="autores"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#autores').html(html);
+              }, "json");
+              
+          });
+
+
+           $('#resultado-busca-4 tbody tr td button3').on('click', function(){
+              let x = $(this).attr('idtag');
+
+                $.post("/titulos",{valor : x}, function(data_d){
+                console.log(data_d);
+                html = `<div id="titulos"></div>`
+                for (var i = 0; i < data_d.length; i++){
+                   html+= `<div class = "mt-2">- `+data_d[i][1]+`</div>`;
+                   // console.log(data_d[i][1]);
+                 }
+              $('#titulos').html(html);
+              }, "json");
+              
+          });
+
+            
+        }
+
+        , "json");
+
+      });
+
+
 
       $("form#uploadForm").submit(function(e){
 
@@ -200,7 +764,6 @@
             
               renderx(data_d, 'word-cloud');
               
-
             },
               cache: false,
               contentType: false,
@@ -224,7 +787,54 @@
               success: function (data_d){
               tagcloud_data_2 = data_d;
               renderx(data_d, 'word-cloud-2');
+            },
+              cache: false,
+              contentType: false,
+              processData: false
+        });
+        return false;
+      });
 
+      $("form#uploadForm-3").submit(function(e){
+
+        e.preventDefault();
+
+        let formData = new FormData($(this)[0]);
+
+          $.ajax({
+              url: '/upload',
+              type: 'POST',
+              data: formData,
+              async: true,
+              dataType: 'JSON',
+              success: function (data_d){
+              tagcloud_data_3 = data_d;
+            
+              renderx(data_d, 'word-cloud-3');
+              
+            },
+              cache: false,
+              contentType: false,
+              processData: false
+        });
+        return false;
+
+      });
+
+      $("form#uploadForm-4").submit(function(e){
+
+        e.preventDefault();
+
+        let formData = new FormData($(this)[0]);
+
+          $.ajax({
+              url: '/upload',
+              type: 'POST',
+              data: formData,
+              async: true,
+              success: function (data_d){
+              tagcloud_data_4 = data_d;
+              renderx(data_d, 'word-cloud-4');
             },
               cache: false,
               contentType: false,
@@ -234,6 +844,14 @@
       });
 
 
+
+
+
+
+
+      $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+      });
 
       $('#filtrar1').click(function(){
 
@@ -266,6 +884,39 @@
         renderx(temp, 'word-cloud-2');
       });
 
+      $('#filtrar3').click(function(){
+
+        var value = parseInt($('#form-control-3').val());  
+        tagcloud_data_3.sort(function(a, b){return b.size-a.size});   
+
+        let temp = [];
+         for(var i=0; i<value; i++){
+
+          temp[i] = tagcloud_data_3[i];
+
+        }
+
+        renderx(temp, 'word-cloud-3');
+      });
+
+
+      $('#filtrar4').click(function(){
+
+        var value = parseInt($('#form-control-4').val());  
+        tagcloud_data_4.sort(function(a, b){return b.size-a.size});   
+
+        let temp = [];
+         for(var i=0; i<value; i++){
+
+          temp[i] = tagcloud_data_4[i];
+
+        }
+        
+        renderx(temp, 'word-cloud-4');
+      });
+
+
+
       $('#compare').click(function(){
         let z = [];
 
@@ -287,7 +938,91 @@
         console.log(z);
         renderx(z, 'resultado');
       });
-    
+
+
+      $('#compare2').click(function(){
+        let z = [];
+
+        let value1s = {};
+
+        tagcloud_data_3.forEach(function(item) {
+          value1s[item.text] = item.size;
+        });
+        tagcloud_data_4.forEach(function(item) {
+          if (item.text in value1s) {
+            if(value1s[item.text].size > item.size){
+              z.push({'text': item.text, 'size': value1s[item.text].size});
+            }else{
+              z.push({'text': item.text, 'size': item.size});
+            }
+          }
+        });
+
+        console.log(z);
+        renderx(z, 'resultado2');
+      });
+
+      $('#reset1').click(function(){
+
+        rendery(tagcloud_data_1, 'word-cloud');
+
+      });  
+
+       $('#reset2').click(function(){
+
+        rendery(tagcloud_data_2, 'word-cloud-2');
+
+      }); 
+
+      $('#listar').click(function(){
+          $('#fecharBD').show();
+
+          $.ajax({
+              url: '/listagem',
+              type: 'POST',
+              async: true,
+              dataType: 'JSON',
+              success: function (data_d){
+
+                  html = `<thead>
+                            <tr>
+                              <th scope="col">Nome Profissional</th>
+                              <th scope="col">Data de Upload</th>
+                            </tr>
+                          </thead>`;
+
+                  for (var i = 0; i < data_d.length; i++) {
+
+                      var x = [];
+                      x = data_d[i];
+
+                      html += `<tbody>
+                                 <tr>
+                                  <td>`+x[1]+`</td>
+                                  <td>`+x[2]+`</td>
+                                  </tr> 
+                                  
+                                </tbody>`;
+
+                  }
+                  $('#listagemBD').html(html);
+              
+            },
+              cache: false,
+              contentType: false,
+              processData: false
+        });
+        return false;
+       }); 
+
+      $('#fecharBD').click(function(){
+        $(this).hide();
+        $('#listagemBD').html('');
+      });
+
+
+
+
     </script>
 </body>
 </html>
